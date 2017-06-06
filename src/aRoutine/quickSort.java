@@ -7,53 +7,55 @@ public class quickSort {
 		if (array == null) {
 			return;
 		}
+//////////S////////////
 		quickSort(array, 0, array.length - 1);
+//////////E////////////
 	}
 
 	public void quickSort(int[] array, int left, int right) {
-		if (left >= right) {
+//////////S////////////
+		if(left >= right){
 			return;
 		}
-		// define a pivot and use it to partition the array and return the
-		// updated pivot position.
+//////////E////////////
 		int pivot = partition(array, left, right);
 		quickSort(array, left, pivot - 1);
 		quickSort(array, pivot + 1, right);
-
 	}
 
 	private int partition(int[] array, int left, int right) {
-		int pivotIndex = pivotIndex(left, right);
-		int pivot = array[pivotIndex];
-		// swap the pivot element to the rightmost position first
+		// TODO Auto-generated method stub
+		int pivotIndex = randomPivot(left, right);
+		int leftIndex = left;
+		///////////////////
+		int pivotIndexVal = array[pivotIndex];
+		///////////////////
 		swap(array, pivotIndex, right);
-		int leftBound = left;
-		int rightBound = right - 1;
-		while (leftBound <= rightBound) {
-			if (array[leftBound] < pivot) {
-				leftBound++;
-			} else if (array[rightBound] >= pivot) {
-				rightBound--;
+		int rightIndex = right - 1;
+		while (leftIndex <= rightIndex) {
+			if (array[leftIndex] < pivotIndexVal) {
+				leftIndex++;
+			} else if (array[rightIndex] >= pivotIndexVal) {
+				rightIndex--;
 			} else {
-				swap(array, leftBound++, rightBound);
+				swap(array, leftIndex++, rightIndex--);
 			}
 		}
-		// swap back the pivot element.
-		swap(array, leftBound, right);
-		return leftBound;
+
+		swap(array, leftIndex, right);
+		return leftIndex;
 	}
 
-	private int pivotIndex(int left, int right) {
+	private void swap(int[] array, int left, int right) {
 		// TODO Auto-generated method stub
-		// pick random element as pivot each time
+		int temp = array[left];
+		array[left] = array[right];
+		array[right] = temp;
+	}
+
+	private int randomPivot(int left, int right) {
+		// TODO Auto-generated method stub
 		return left + (int) (Math.random() * (right - left + 1));
-	}
-
-	private void swap(int[] array, int pivotIndex, int right) {
-		// TODO Auto-generated method stub
-		int temp = array[right];
-		array[right] = array[pivotIndex];
-		array[pivotIndex] = temp;
 	}
 
 	public static void main(String[] args) {
