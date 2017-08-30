@@ -15,24 +15,24 @@ public class QuickSort {
 		if(left >= right){
 			return;
 		}
-		int pivotPos = sortArray(array, left, right);
-		quickSort(array, left, pivotPos);
-		quickSort(array, pivotPos + 1, right);
+		int pivotIndex = sortWithRandomPivot(array, left, right);
+		quickSort(array, left,pivotIndex - 1);
+		quickSort(array,pivotIndex + 1,right);
 	}
 
-	private int sortArray(int[] array, int left, int right){
-		int randomPivot = getRandomPivot(left, right);
-		int pivot = array[randomPivot];
+	private int sortWithRandomPivot(int[] array, int left, int right){
+		int pivotPos = getRandomPivot(left,right);
 		int leftBound = left;
-		swap(array,right,randomPivot);
 		int rightBound = right - 1;
+		int pivotValue = array[pivotPos];
+		swap(array,right,pivotPos);
 		while(leftBound <= rightBound){
-			if(array[leftBound] < pivot){
+			if(array[leftBound] < pivotValue){
 				leftBound++;
-			}else if(array[rightBound] >= pivot){
+			}else if(array[rightBound] >= pivotValue){
 				rightBound--;
-			}else {
-				swap(array, leftBound++, rightBound--);
+			}else{
+				swap(array,leftBound++,rightBound--);
 			}
 		}
 		swap(array,leftBound,right);
@@ -42,6 +42,8 @@ public class QuickSort {
 	private int getRandomPivot(int left, int right){
 		return left + (int)Math.random()*(right - left + 1);
 	}
+
+
 	
 	private void swap(int[] array, int left, int right) {
 		// TODO Auto-generated method stub
